@@ -1,6 +1,8 @@
-:root { --bg:#fff; --fg:#111; --muted:#666; --line:#e4e4e4; --card:#f6f6f6; }
+@property --accent { syntax:'<color>'; inherits:true; initial-value:#E8A0AE; }
+:root { --bg:#FFF5E9; --fg:#614b49; --muted:#8c7673; --accent:#E8A0AE; --ink:#3b2c2a;
+  --line:color-mix(in srgb,var(--accent) 45%,var(--bg)); --card:color-mix(in srgb,var(--accent) 16%,var(--bg)); }
 @media (prefers-color-scheme: dark) {
-  :root { --bg:#0b0b0b; --fg:#f2f2f2; --muted:#9a9a9a; --line:#262626; --card:#151515; }
+    :root { --bg:#2b2221; --fg:#FFF5E9; --muted:#c9b3ad; }
 }
 * { box-sizing:border-box; }
 html { scroll-behavior:smooth; }
@@ -124,3 +126,23 @@ footer { text-align:center; color:var(--muted); font-size:.8rem; padding:2rem 1r
   .name:hover .portrait { transform:none; }
 }
 @media (prefers-reduced-motion: reduce) { .portrait { animation:none !important; } }
+
+/* ---------- v4: strawberry matcha ---------- */
+@keyframes tint { 0%,100% { --accent:#E8A0AE } 50% { --accent:#A8B89A } }
+html { animation:tint 12s ease-in-out infinite; }
+.home { background:radial-gradient(circle at 50% 52%, color-mix(in srgb,var(--accent) 38%,transparent), transparent 58%); }
+.portrait { background:url("photo-cutout.png") center bottom/contain no-repeat, linear-gradient(var(--accent),var(--accent)); background-blend-mode:multiply;
+  -webkit-mask:url("photo-cutout.png") center bottom/contain no-repeat, linear-gradient(#000 82%,transparent); -webkit-mask-composite:source-in;
+  mask:url("photo-cutout.png") center bottom/contain no-repeat, linear-gradient(#000 82%,transparent); mask-composite:intersect; }
+.corner:hover { text-decoration-color:var(--accent); text-decoration-thickness:3px; }
+.bar nav a::after { background:var(--accent); height:3px; }
+.card:hover { border-color:var(--accent); box-shadow:0 14px 30px color-mix(in srgb,var(--accent) 45%,transparent); }
+.tabs button { border-color:var(--fg); }
+.tabs button.on, .tabs button:hover { background:var(--accent); color:var(--ink); border-color:var(--accent); }
+.cta { background:var(--fg); color:var(--bg); }
+.btn.solid, .cta .btn.solid { background:var(--accent); color:var(--ink); border-color:var(--accent); }
+.btn:hover, .btn.solid:hover, .cta .btn:hover { background:transparent; color:inherit; }
+.cta .btn:hover { color:var(--bg); border-color:var(--accent); }
+.btn.solid:hover { color:var(--bg); }
+.wrap > h1 { text-decoration:underline; text-decoration-color:var(--accent); text-decoration-thickness:.08em; text-underline-offset:.12em; }
+::selection { background:var(--accent); color:var(--ink); }
