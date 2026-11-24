@@ -103,3 +103,24 @@ footer { text-align:center; color:var(--muted); font-size:.8rem; padding:2rem 1r
   *, *::before, *::after { animation:none !important; transition:none !important; }
   .name .ch, .reveal, .corner, .tag { opacity:1 !important; transform:none !important; }
 }
+
+/* ---------- v3: cutout portrait behind text + big-to-small intro ---------- */
+@keyframes introZoom { from { transform:translate(-50%,-50%) scale(4.4) } to { transform:translate(-50%,-50%) scale(1) } }
+@keyframes introZoomFlat { from { transform:scale(3.2) } to { transform:scale(1) } }
+.name { animation:none; }
+.name > span { position:static; z-index:auto; }
+.portrait { background:url("photo-cutout.png") center bottom/contain no-repeat; width:clamp(190px,30vw,430px); aspect-ratio:324/298; overflow:visible;
+  z-index:1; animation:introZoom 1.9s cubic-bezier(.76,0,.24,1) .2s backwards;
+  -webkit-mask-image:linear-gradient(#000 82%,transparent); mask-image:linear-gradient(#000 82%,transparent); }
+.portrait::after { display:none; }
+.name:hover .portrait { transform:translate(-50%,-50%) scale(1.05); }
+/* text sits on top; difference blend keeps it readable over the dark blazer */
+.name .ch { position:relative; z-index:3; color:#fff; mix-blend-mode:difference; animation-delay:calc(var(--i) * 60ms + 1.8s); }
+.name:hover .ch { animation-delay:0s, calc(var(--i) * 70ms); }
+.corner { animation-delay:2.3s; }
+.tag { animation-delay:2.5s; }
+@media (max-width:640px) {
+  .portrait { animation-name:introZoomFlat; width:62vw; }
+  .name:hover .portrait { transform:none; }
+}
+@media (prefers-reduced-motion: reduce) { .portrait { animation:none !important; } }
