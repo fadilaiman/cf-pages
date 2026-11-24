@@ -1,8 +1,8 @@
 @property --accent { syntax:'<color>'; inherits:true; initial-value:#E8A0AE; }
-:root { --bg:#FFF5E9; --fg:#614b49; --muted:#8c7673; --accent:#E8A0AE; --ink:#3b2c2a;
+:root { --bg:#FFF5E9; --fg:#614b49; --muted:#6f5a57; --berry:#C4566F; --deep:#C4566F; --accent:#E8A0AE; --ink:#3b2c2a;
   --line:color-mix(in srgb,var(--accent) 45%,var(--bg)); --card:color-mix(in srgb,var(--accent) 16%,var(--bg)); }
 @media (prefers-color-scheme: dark) {
-    :root { --bg:#2b2221; --fg:#FFF5E9; --muted:#c9b3ad; }
+    :root { --bg:#2b2221; --fg:#FFF5E9; --muted:#d6c3bd; --berry:#F0A3B3; --deep:#F0A3B3; }
 }
 * { box-sizing:border-box; }
 html { scroll-behavior:smooth; }
@@ -129,7 +129,7 @@ footer { text-align:center; color:var(--muted); font-size:.8rem; padding:2rem 1r
 
 /* ---------- v4: strawberry matcha ---------- */
 @keyframes tint { 0%,100% { --accent:#E8A0AE } 50% { --accent:#A8B89A } }
-html { animation:tint 12s ease-in-out infinite; }
+html.cycle { animation:tint 12s ease-in-out infinite; }
 .home { background:radial-gradient(circle at 50% 52%, color-mix(in srgb,var(--accent) 38%,transparent), transparent 58%); }
 .portrait { background:url("photo-cutout.png") center bottom/contain no-repeat, linear-gradient(var(--accent),var(--accent)); background-blend-mode:multiply;
   -webkit-mask:url("photo-cutout.png") center bottom/contain no-repeat, linear-gradient(#000 82%,transparent); -webkit-mask-composite:source-in;
@@ -146,3 +146,17 @@ html { animation:tint 12s ease-in-out infinite; }
 .btn.solid:hover { color:var(--bg); }
 .wrap > h1 { text-decoration:underline; text-decoration-color:var(--accent); text-decoration-thickness:.08em; text-underline-offset:.12em; }
 ::selection { background:var(--accent); color:var(--ink); }
+
+/* ---------- v5: readability + matcha pages ---------- */
+html.matcha { --accent:#A8B89A; --deep:#4F7A44; }
+@media (prefers-color-scheme: dark) { html.matcha { --deep:#B9D3A0; } }
+/* hero name: solid strawberry with a bg-coloured halo so it reads over the photo */
+.name .ch { mix-blend-mode:normal; color:var(--berry); -webkit-text-stroke:.07em var(--bg); paint-order:stroke fill; }
+.portrait { width:clamp(180px,26vw,380px); filter:brightness(1.15); }
+.home { background:radial-gradient(ellipse 36% 52% at 50% 50%, color-mix(in srgb,var(--accent) 55%,transparent), transparent); }
+/* tagline sits below the photo, never on it */
+.tag { bottom:max(3.2rem,8vh); color:var(--fg); font-weight:700; letter-spacing:.14em; text-transform:uppercase; font-size:.8rem; z-index:4; }
+.wrap > h1 { color:var(--deep); }
+.card .meta { color:var(--deep); }
+.lead { color:var(--muted); }
+@media (max-width:640px) { .tag { bottom:max(2.5rem,6vh); } .portrait { filter:brightness(1.15); } }
